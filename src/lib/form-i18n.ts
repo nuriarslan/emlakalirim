@@ -1,6 +1,6 @@
 import type { Locale } from "./i18n";
 
-type FormText = Record<string,string> & {steps:string[]};
+type FormText = { steps: string[]; [key: string]: string | string[] };
 const common = {
   tr:{steps:["Mülk","Durum","İletişim"],area:"Bölge / mahalle *",type:"Mülk tipi *",size:"Yaklaşık büyüklük *",parcel:"Ada / parsel",price:"Fiyat beklentisi",title:"Tapu durumu *",zoning:"İmar durumu",timing:"Satış zamanı *",decision:"Karar durumu *",name:"Ad soyad *",phone:"Telefon / WhatsApp *",note:"Ek bilgi",choose:"Seçin",next:"Devam",back:"Geri",submit:"Ön değerlendirme iste",sending:"Gönderiliyor…",consent:"KVKK / gizlilik bilgisini okudum.",fine:"Başvuru satış zorunluluğu veya satın alma taahhüdü oluşturmaz.",success:"Teşekkürler. Dosyanızı inceleyip uygunluk varsa sizinle iletişime geçeceğiz."},
   de:{steps:["Objekt","Situation","Kontakt"],area:"Region / Ort *",type:"Objektart *",size:"Ungefähre Größe *",parcel:"Ada / Parsel",price:"Preisvorstellung",title:"Eigentumsstatus *",zoning:"Baurecht / Planung",timing:"Verkaufszeitraum *",decision:"Entscheidung *",name:"Name *",phone:"Telefon / WhatsApp *",note:"Zusatzinfo",choose:"Bitte wählen",next:"Weiter",back:"Zurück",submit:"Prüfung anfragen",sending:"Wird gesendet…",consent:"Ich habe die Datenschutzinformation gelesen.",fine:"Die Anfrage verpflichtet weder zum Verkauf noch zum Kauf.",success:"Danke. Wir prüfen die Angaben und melden uns bei möglicher Passung."},
