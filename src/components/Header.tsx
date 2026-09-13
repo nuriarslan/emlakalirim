@@ -20,9 +20,9 @@ export function Header() {
             Emlak <span>Alırım</span>
           </Link>
           <nav className="desktopNav" aria-label="Main navigation">
-            <Link href={localeHref(locale, "#bolgeler")}>{c.nav.regions}</Link>
+            <Link href={locale === "tr" ? "/bolgeler" : localeHref(locale, "#bolgeler")}>{c.nav.regions}</Link>
             <Link href={localeHref(locale, "#yatirim-kriterleri")}>{c.nav.criteria}</Link>
-            {locale === "tr" ? <Link href="/#rehber">{c.nav.guide}</Link> : <Link href={localeHref(locale, "#faq")}>{c.nav.guide}</Link>}
+            <Link href={locale === "tr" ? "/rehber" : localeHref(locale, "#faq")}>{c.nav.guide}</Link>
           </nav>
           <div className="headerActions">
             <details className="languageMenu">
