@@ -29,7 +29,7 @@ export function Footer() {
         </div>
         <div>
           <strong>{t.areas}</strong>
-          {locale === "tr" ? regions.slice(0, 5).map((region) => <Link key={region.slug} href={`/bolgeler/${region.slug}`}>{region.name}</Link>) : c.regions.slice(0, 5).map(([name]) => <Link key={name} href={localeHref(locale, "#bolgeler")}>{name}</Link>)}
+          {locale === "tr" ? regions.slice(0, 5).map((region) => <Link key={region.slug} href={`/bolgeler/${region.slug}`}>{region.name}</Link>) : c.regions.slice(0, 5).map(([name]: string[]) => <Link key={name} href={localeHref(locale, "#bolgeler")}>{name}</Link>)}
         </div>
         <div>
           <strong>{t.guides}</strong>
