@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
-import { guides, regions, site } from "@/lib/site";
 import { localizedLocales, localeMeta } from "@/lib/i18n";
+import { leadGuides } from "@/lib/lead-guides";
+import { guides as baseGuides, regions, site } from "@/lib/site";
+
+const guides = [...leadGuides, ...baseGuides];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
