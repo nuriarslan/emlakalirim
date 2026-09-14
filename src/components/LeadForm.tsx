@@ -40,6 +40,7 @@ export function LeadForm({ compact = false, locale = "tr" }: { compact?: boolean
       <label><span>{t.timing}</span><select name="timing" required defaultValue=""><option value="" disabled>{t.choose}</option>{o.timing.map(([v,l]:string[])=><option key={v} value={v}>{l}</option>)}</select></label>
       <label><span>{t.decision}</span><select name="decisionStatus" required defaultValue=""><option value="" disabled>{t.choose}</option>{o.decision.map(([v,l]:string[])=><option key={v} value={v}>{l}</option>)}</select></label>
     </div>
+    <label><span>{t.caseType}</span><select name="caseType" defaultValue="">{o.cases.map(([v,l]:string[])=><option key={`${v}-${l}`} value={v}>{l}</option>)}</select></label>
     <div className="formGrid two">
       <label><span>{t.name}</span><input name="name" autoComplete="name" required /></label>
       <label><span>{t.phone}</span><input name="phone" autoComplete="tel" inputMode="tel" required /></label>
