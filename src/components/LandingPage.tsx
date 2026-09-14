@@ -1,8 +1,12 @@
 import Link from "next/link";
+import { ComplexSaleCases } from "@/components/ComplexSaleCases";
 import { LeadForm } from "@/components/LeadForm";
 import { copy, localeHref, localeMeta, type Locale } from "@/lib/i18n";
+import { leadGuides } from "@/lib/lead-guides";
 import { guides, regions } from "@/lib/site";
 import { regionVisuals, visuals } from "@/lib/visuals";
+
+const allGuides = [...leadGuides, ...guides];
 
 const featured = [
   { name: "Beykoz", note: "Boğaz • yeşil doku • seçili mülkler", image: visuals.hero, href: "/bolgeler/beykoz" },
@@ -193,6 +197,8 @@ export function LandingPage({ locale = "tr" }: { locale?: Locale }) {
         </div>
       </section>
 
+      <ComplexSaleCases locale={locale} />
+
       <section className="section dark imageDarkSection" id="yatirim-kriterleri">
         <div className="imageDarkBackdrop" style={{backgroundImage:`url(${visuals.land})`}} />
         <div className="wrap twoCol darkContent">
@@ -210,7 +216,7 @@ export function LandingPage({ locale = "tr" }: { locale?: Locale }) {
         </div>
       </section>
 
-      {locale === "tr" && <section className="section guideSection" id="rehber"><div className="wrap"><div className="sectionHead"><span>ORGANİK REHBERLER</span><h2>Satıştan önce bilmeniz gerekenler</h2></div><div className="guideGrid">{guides.map((g)=><Link className="guideCard" key={g.slug} href={`/rehber/${g.slug}`}><small>{g.eyebrow}</small><h3>{g.title}</h3><p>{g.description}</p><span>Devamını oku →</span></Link>)}</div></div></section>}
+      {locale === "tr" && <section className="section guideSection" id="rehber"><div className="wrap"><div className="sectionHead"><span>ORGANİK REHBERLER</span><h2>Satıştan önce bilmeniz gerekenler</h2></div><div className="guideGrid">{allGuides.map((g)=><Link className="guideCard" key={g.slug} href={`/rehber/${g.slug}`}><small>{g.eyebrow}</small><h3>{g.title}</h3><p>{g.description}</p><span>Devamını oku →</span></Link>)}</div></div></section>}
 
       <section className="section muted" id="faq"><div className="wrap narrow"><div className="sectionHead"><span>FAQ</span><h2>{c.faqTitle}</h2></div><div className="faqList">{c.faq.map(([q,a]:string[])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
 
