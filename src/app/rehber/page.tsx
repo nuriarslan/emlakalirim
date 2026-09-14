@@ -1,15 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { leadGuides } from "@/lib/lead-guides";
+import { seoGuides } from "@/lib/seo-guides";
 import { guides as baseGuides } from "@/lib/site";
 
-const guides = [...leadGuides, ...baseGuides];
+const guides = [...leadGuides, ...seoGuides, ...baseGuides];
 
 export const metadata: Metadata = {
-  title: "Gayrimenkul Satış Rehberi",
-  description: "Ev, arsa, hisseli tapu, miras, vekâlet, yurt dışından satış ve karmaşık tapu durumları hakkında pratik rehberler.",
+  title: "Gayrimenkul Satış Rehberi | Ev, Arsa, Hisse, Miras ve Yurt Dışı",
+  description: "Evimi satmak istiyorum, arsamı satmak istiyorum, hisseli tapu, miras, vekâlet, yurt dışından satış, komple bina, tarla ve ilan vermeden satış için pratik rehberler.",
   alternates: { canonical: "/rehber" },
 };
+
+const intentLinks = [
+  ["Evimi satmak istiyorum", "/rehber/evimi-satmak-istiyorum"],
+  ["Arsamı satmak istiyorum", "/rehber/arsami-satmak-istiyorum"],
+  ["Hissemi satmak istiyorum", "/rehber/hissemi-satmak-istiyorum"],
+  ["Miras kalan gayrimenkul", "/rehber/miras-kalan-gayrimenkul-satisi"],
+  ["Yurt dışından satış", "/rehber/yurtdisinda-yasayan-malik-gayrimenkul-satisi"],
+  ["Vekâletle satış", "/rehber/vekaletle-gayrimenkul-satisi"],
+  ["Komple bina satışı", "/rehber/komple-bina-satisi"],
+  ["Tarla satışı", "/rehber/tarla-satmak-istiyorum"],
+  ["İlan vermeden satış", "/rehber/ilan-vermeden-gayrimenkul-satmak"],
+  ["Kısa satış takvimi", "/rehber/gayrimenkulu-hizli-satmak"],
+] as const;
 
 export default function GuideHubPage() {
   return (
@@ -18,8 +32,11 @@ export default function GuideHubPage() {
         <div className="wrap">
           <div className="sectionHead wideHead">
             <span>EMLAK ALIRIM REHBER</span>
-            <h1 className="contentPageTitle">Gayrimenkul satmayı düşünenler için rehberler</h1>
-            <p>Tapu, malik yapısı, arsa niteliği, miras, vekâlet, hisseli mülkiyet ve yurt dışından satış gibi konuları satışa başlamadan önce daha net anlamanıza yardımcı olacak içerikler.</p>
+            <h1 className="contentPageTitle">Gayrimenkul satmayı düşünenler için satış rehberleri</h1>
+            <p>Ev, arsa, tarla, komple bina, hisseli tapu, miras, vekâlet ve yurt dışından satış gibi gerçek satıcı niyetlerine göre hazırlanmış içerikler. Amaç genel bilgi vermek değil, satışa uygun dosyaların doğru bilgilerle hızlı biçimde ön değerlendirmeye gelmesini sağlamaktır.</p>
+          </div>
+          <div className="pillList" style={{ marginBottom: 32 }}>
+            {intentLinks.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
           </div>
           <div className="guideGrid">
             {guides.map((guide) => (
