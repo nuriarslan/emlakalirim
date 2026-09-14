@@ -3,15 +3,30 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { copy, localeFromPath, localeHref, localeMeta, locales } from "@/lib/i18n";
-import { regions, guides, site } from "@/lib/site";
+import { leadGuides } from "@/lib/lead-guides";
+import { seoGuides } from "@/lib/seo-guides";
+import { regions, guides as baseGuides, site } from "@/lib/site";
 
 const footerText = {
-  tr: { intro: "İstanbul ve çevresinde arsa, ev, villa, bina ve seçili taşınmazları yatırım kriterlerimiz açısından ön değerlendirmeye alıyoruz.", areas: "Bölgeler", guides: "Rehber", info: "Bilgi", form: "Ön değerlendirme", privacy: "KVKK / Gizlilik", note: "Başvuru satın alma taahhüdü değildir." },
-  de: { intro: "Wir prüfen ausgewählte Grundstücke, Häuser, Villen und Gebäude in Istanbul aus Investorensicht.", areas: "Regionen", guides: "Ratgeber", info: "Information", form: "Vorprüfung", privacy: "Datenschutz", note: "Eine Anfrage ist keine Kaufzusage." },
-  en: { intro: "We review selected land, houses, villas and buildings in Istanbul from an investment perspective.", areas: "Areas", guides: "Guides", info: "Information", form: "Initial review", privacy: "Privacy", note: "An enquiry is not a commitment to purchase." },
-  ru: { intro: "Мы рассматриваем выбранные участки, дома, виллы и здания в Стамбуле с инвестиционной точки зрения.", areas: "Районы", guides: "Материалы", info: "Информация", form: "Оценка", privacy: "Конфиденциальность", note: "Заявка не является обязательством купить." },
-  ar: { intro: "نراجع أراضي ومنازل وفللاً ومبانٍ مختارة في إسطنبول من منظور استثماري.", areas: "المناطق", guides: "أدلة", info: "معلومات", form: "تقييم أولي", privacy: "الخصوصية", note: "إرسال الطلب لا يشكل التزاماً بالشراء." },
+  tr: { intro: "İstanbul ve çevresinde arsa, ev, villa, bina ve seçili taşınmazları yatırım kriterlerimiz açısından ön değerlendirmeye alıyoruz.", areas: "Bölgeler", guides: "Satış rehberleri", info: "Bilgi", form: "Ön değerlendirme", privacy: "KVKK / Gizlilik", note: "Başvuru satın alma taahhüdü değildir." },
+  de: { intro: "Wir prüfen ausgewählte Grundstücke, Häuser, Villen und Gebäude in Istanbul aus Investorensicht – auch für Eigentümer im Ausland.", areas: "Regionen", guides: "Verkaufen in der Türkei", info: "Information", form: "Vorprüfung", privacy: "Datenschutz", note: "Eine Anfrage ist keine Kaufzusage." },
+  en: { intro: "We review selected land, houses, villas and buildings in Istanbul from an investment perspective, including owners living abroad.", areas: "Areas", guides: "Sell in Turkey", info: "Information", form: "Initial review", privacy: "Privacy", note: "An enquiry is not a commitment to purchase." },
+  ru: { intro: "Мы рассматриваем выбранные участки, дома, виллы и здания в Стамбуле с инвестиционной точки зрения, в том числе для владельцев за рубежом.", areas: "Районы", guides: "Продажа в Турции", info: "Информация", form: "Оценка", privacy: "Конфиденциальность", note: "Заявка не является обязательством купить." },
+  ar: { intro: "نراجع أراضي ومنازل وفللاً ومبانٍ مختارة في إسطنبول من منظور استثماري، بما في ذلك الملاك خارج تركيا.", areas: "المناطق", guides: "البيع في تركيا", info: "معلومات", form: "تقييم أولي", privacy: "الخصوصية", note: "إرسال الطلب لا يشكل التزاماً بالشراء." },
 } as const;
+
+const internationalSellerLinks = {
+  de: [
+    ["Immobilie in der Türkei verkaufen", "/de/immobilie-tuerkei-verkaufen"],
+    ["Geerbte Immobilie verkaufen", "/de/geerbte-immobilie-tuerkei-verkaufen"],
+    ["Verkauf mit Vollmacht", "/de/vollmacht-immobilienverkauf-tuerkei"],
+  ],
+  en: [["Sell property in Turkey", "/en/sell-property-turkey"]],
+  ru: [["Продать недвижимость в Турции", "/ru/prodat-nedvizhimost-v-turtsii"]],
+  ar: [["بيع عقار في تركيا", "/ar/sell-property-turkey"]],
+} as const;
+
+const turkishGuideLinks = [...leadGuides, ...seoGuides, ...baseGuides].slice(0, 10);
 
 export function Footer() {
   const pathname = usePathname();
@@ -33,7 +48,13 @@ export function Footer() {
         </div>
         <div>
           <strong>{t.guides}</strong>
-          {locale === "tr" ? guides.map((guide) => <Link key={guide.slug} href={`/rehber/${guide.slug}`}>{guide.eyebrow}</Link>) : <><Link href={localeHref(locale, "#form")}>{c.finalButton}</Link><Link href="/rehber">Türkçe rehberler</Link></>}
+          {locale === "tr" ? <>
+            {turkishGuideLinks.map((guide) => <Link key={guide.slug} href={`/rehber/${guide.slug}`}>{guide.eyebrow}</Link>)}
+            <Link href="/rehber">Tüm rehberler →</Link>
+          </> : <>
+            {internationalSellerLinks[locale].map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+            <Link href={localeHref(locale, "#form")}>{c.finalButton}</Link>
+          </>}
         </div>
         <div>
           <strong>{t.info}</strong>
