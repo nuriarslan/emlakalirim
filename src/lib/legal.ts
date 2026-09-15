@@ -1,6 +1,6 @@
 export const legalIdentity = {
-  operatorName: process.env.LEGAL_OPERATOR_NAME?.trim() || "Emlak Alırım",
-  legalForm: process.env.LEGAL_ENTITY_TYPE?.trim() || "",
+  operatorName: process.env.LEGAL_OPERATOR_NAME?.trim() || "",
+  legalForm: process.env.LEGAL_ENTITY_TYPE?.trim() || "Privater Käufer / gerçek kişi alıcı",
   address: process.env.LEGAL_ADDRESS?.trim() || "",
   email: process.env.LEGAL_EMAIL?.trim() || "",
   phone: process.env.LEGAL_PHONE?.trim() || "",
@@ -12,12 +12,15 @@ export const legalIdentity = {
   authority: process.env.LEGAL_AUTHORITY?.trim() || "",
 };
 
+// For the currently described operating model the site is run by a natural person
+// acquiring property in their own name and for their own account. Registry, MERSIS,
+// chamber and Turkish tax fields are therefore not treated as universally required.
+// They remain available and are displayed only if they later become applicable.
 export const legalIdentityComplete = Boolean(
   process.env.LEGAL_OPERATOR_NAME?.trim() &&
   process.env.LEGAL_ADDRESS?.trim() &&
   process.env.LEGAL_EMAIL?.trim() &&
-  process.env.LEGAL_PHONE?.trim() &&
-  (process.env.LEGAL_TAX_ID?.trim() || process.env.LEGAL_MERSIS?.trim() || process.env.LEGAL_TRADE_REGISTRY?.trim())
+  process.env.LEGAL_PHONE?.trim()
 );
 
 export const hostingProvider = {
