@@ -9,7 +9,7 @@ import { regions, guides as baseGuides, site } from "@/lib/site";
 
 const footerText = {
   tr: { intro: "İstanbul ve çevresinde arsa, ev, villa, bina ve seçili taşınmazları yatırım kriterlerimiz açısından ön değerlendirmeye alıyoruz.", areas: "Bölgeler", guides: "Satış rehberleri", info: "İletişim / Yasal", form: "Ön değerlendirme", contact: "İletişim ve yasal bilgiler", privacy: "KVKK aydınlatma", cookies: "Çerez politikası", terms: "Kullanım koşulları", messages: "İletişim tercihleri", note: "Başvuru satın alma taahhüdü veya pazarlama izni değildir." },
-  de: { intro: "Wir prüfen ausgewählte Grundstücke, Häuser, Villen und Gebäude in Istanbul aus Investorensicht – auch für Eigentümer im Ausland.", areas: "Regionen", guides: "Verkaufen in der Türkei", info: "Kontakt / Rechtliches", form: "Vorprüfung", contact: "Betreiber & Kontakt", privacy: "KVKK-Datenschutz", cookies: "Cookie-Richtlinie", terms: "Nutzungsbedingungen", messages: "Kommunikationspräferenzen", note: "Eine Anfrage ist keine Kaufzusage oder Werbeeinwilligung." },
+  de: { intro: "Wir prüfen ausgewählte Grundstücke, Häuser, Villen und Gebäude in Istanbul aus Investorensicht – auch für Eigentümer im Ausland.", areas: "Regionen", guides: "Verkaufen in der Türkei", info: "Kontakt / Rechtliches", form: "Vorprüfung", contact: "Impressum / Anbieter", privacy: "Datenschutz", cookies: "Cookie-Hinweise", terms: "Nutzungsbedingungen", messages: "Kommunikationspräferenzen", note: "Eine Anfrage ist keine Kaufzusage oder Werbeeinwilligung." },
   en: { intro: "We review selected land, houses, villas and buildings in Istanbul from an investment perspective, including owners living abroad.", areas: "Areas", guides: "Sell in Turkey", info: "Contact / Legal", form: "Initial review", contact: "Operator & contact", privacy: "KVKK privacy notice", cookies: "Cookie policy", terms: "Terms of use", messages: "Communication preferences", note: "An enquiry is not a purchase commitment or marketing consent." },
   ru: { intro: "Мы рассматриваем выбранные участки, дома, виллы и здания в Стамбуле с инвестиционной точки зрения, в том числе для владельцев за рубежом.", areas: "Районы", guides: "Продажа в Турции", info: "Контакты / Правовая информация", form: "Оценка", contact: "Оператор и контакты", privacy: "Уведомление KVKK", cookies: "Политика cookies", terms: "Условия использования", messages: "Настройки связи", note: "Заявка не является обязательством купить или согласием на рекламу." },
   ar: { intro: "نراجع أراضي ومنازل وفللاً ومبانٍ مختارة في إسطنبول من منظور استثماري، بما في ذلك الملاك خارج تركيا.", areas: "المناطق", guides: "البيع في تركيا", info: "التواصل / معلومات قانونية", form: "تقييم أولي", contact: "المشغّل وبيانات التواصل", privacy: "إشعار الخصوصية KVKK", cookies: "سياسة ملفات الارتباط", terms: "شروط الاستخدام", messages: "تفضيلات التواصل", note: "إرسال الطلب لا يشكل التزاماً بالشراء أو موافقة على التسويق." },
@@ -33,6 +33,21 @@ export function Footer() {
   const locale = localeFromPath(pathname);
   const t = footerText[locale];
   const c = copy[locale];
+  const legal = locale === "de"
+    ? {
+        contact: "/de/impressum",
+        privacy: "/de/datenschutz",
+        cookies: "/de/cookies",
+        terms: "/de/nutzungsbedingungen",
+        messages: "/de/kommunikation",
+      }
+    : {
+        contact: "/yasal/iletisim",
+        privacy: "/yasal/kvkk-aydinlatma-metni",
+        cookies: "/yasal/cerez-politikasi",
+        terms: "/yasal/kullanim-kosullari",
+        messages: "/yasal/ticari-elektronik-ileti",
+      };
 
   return (
     <footer className="footer" dir={localeMeta[locale].dir}>
@@ -59,11 +74,11 @@ export function Footer() {
         <div>
           <strong>{t.info}</strong>
           <Link href={localeHref(locale, "#form")}>{t.form}</Link>
-          <Link href="/yasal/iletisim">{t.contact}</Link>
-          <Link href="/yasal/kvkk-aydinlatma-metni">{t.privacy}</Link>
-          <Link href="/yasal/cerez-politikasi">{t.cookies}</Link>
-          <Link href="/yasal/kullanim-kosullari">{t.terms}</Link>
-          <Link href="/yasal/ticari-elektronik-ileti">{t.messages}</Link>
+          <Link href={legal.contact}>{t.contact}</Link>
+          <Link href={legal.privacy}>{t.privacy}</Link>
+          <Link href={legal.cookies}>{t.cookies}</Link>
+          <Link href={legal.terms}>{t.terms}</Link>
+          <Link href={legal.messages}>{t.messages}</Link>
           <span className="footerNote">{t.note}</span>
           <a href={site.url}>emlakalirim.com</a>
         </div>
