@@ -10,6 +10,7 @@ export function LeadForm({ compact = false, locale = "tr" }: { compact?: boolean
   const [message, setMessage] = useState("");
   const t = formCopy[locale];
   const o = formOptions[locale];
+  const privacyHref = locale === "de" ? "/de/datenschutz" : "/yasal/kvkk-aydinlatma-metni";
 
   async function submit(e:FormEvent<HTMLFormElement>){
     e.preventDefault(); setStatus("sending"); setMessage("");
@@ -48,7 +49,7 @@ export function LeadForm({ compact = false, locale = "tr" }: { compact?: boolean
     </div>
     <label><span>{t.note}</span><textarea name="note" placeholder="Yol, bina yaşı, kiracı, özel durum…" maxLength={1200} /></label>
     <p className="formFine">{t.sensitiveNote}</p>
-    <label className="consent"><input type="checkbox" name="noticeRead" value="yes" required /><span><Link href="/yasal/kvkk-aydinlatma-metni">{t.consent}</Link></span></label>
+    <label className="consent"><input type="checkbox" name="noticeRead" value="yes" required /><span><Link href={privacyHref}>{t.consent}</Link></span></label>
     <button className="primaryButton" type="submit" disabled={status==="sending"}>{status==="sending"?t.sending:t.submit} →</button>
     <p className="formFine">{t.fine}</p>{message&&<div className={`formMessage ${status}`}>{message}</div>}
   </form>;
